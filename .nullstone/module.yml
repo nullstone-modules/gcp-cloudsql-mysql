@@ -1,0 +1,13 @@
+org_name: nullstone
+name: gcp-cloudsql-mysql
+friendly_name: CloudSQL MySQL Cluster
+description: Produces a standard, best-practice CloudSQL MySQL cluster in Google Cloud
+category: datastore
+subcategory: ""
+provider_types:
+    - gcp
+platform: mysql
+subplatform: cloudsql
+type: ""
+appCategories: []
+is_public: true
