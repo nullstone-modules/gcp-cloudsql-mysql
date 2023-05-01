@@ -59,8 +59,3 @@ maintenance:
 flags: none set
 labels: none added
 */
-
-/*
-Brad's understanding
-the top resource would be our network from the other module
-*/
