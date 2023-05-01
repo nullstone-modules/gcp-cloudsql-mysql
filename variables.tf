@@ -6,7 +6,7 @@ variable "mysql_version" {
 
 variable "instance_class" {
   type    = string
-  default = "db.t3.micro"
+  default = "db-f1-micro"
 }
 
 variable "allocated_storage" {
@@ -15,10 +15,10 @@ variable "allocated_storage" {
   description = "Allocated storage in GB"
 }
 
-variable "backup_retention_period" {
+variable "backup_retention_count" {
   type        = number
   default     = 5
-  description = "The number of days that each backup is retained"
+  description = "The number of backups that are retained before the oldest is deleted"
 }
 
 variable "high_availability" {
@@ -41,6 +41,11 @@ This is highly recommended if you have public access enabled.
 EOF
 }
 
+locals {
+  port = 3306
+}
+
+/*
 variable "enable_public_access" {
   type        = bool
   default     = false
@@ -51,7 +56,7 @@ However, this is necessary for scenarios like connecting from a Heroku app.
 EOF
 }
 
-variable "custom_postgres_params" {
+variable "custom_mysql_params" {
   type        = map(string)
   default     = {}
   description = <<EOF
@@ -59,7 +64,4 @@ This is a dictionary of parameters to custom-configure the RDS postgres instance
 For a list of parameters, see https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.Parameters.html
 EOF
 }
-
-locals {
-  port = 5432
-}
+*/
