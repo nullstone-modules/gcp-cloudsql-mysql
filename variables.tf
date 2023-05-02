@@ -41,10 +41,6 @@ This is highly recommended if you have public access enabled.
 EOF
 }
 
-locals {
-  port = 3306
-}
-
 /*
 variable "enable_public_access" {
   type        = bool

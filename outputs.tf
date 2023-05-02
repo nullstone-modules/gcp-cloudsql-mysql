@@ -1,21 +1,17 @@
-/*
-output "db_instance_arn" {
-  value       = google_sql_database_instance.this.
-  description = "string ||| ARN of the Postgres instance"
+output "db_instance_name" {
+  value       = google_sql_database_instance.this.name
+  description = "string ||| Name of the MySQL instance"
 }
-*/
 
 output "db_instance_id" {
   value       = google_sql_database_instance.this.id
   description = "string ||| ID of the MySQL instance"
 }
 
-/*
 output "db_master_secret_name" {
-  value       = aws_secretsmanager_secret.password.name
-  description = "string ||| The name of the secret in AWS Secrets Manager containing the password"
+  value       = google_secret_manager_secret.password.secret_id
+  description = "string ||| The name of the secret in Google Secrets Manager containing the password"
 }
-*/
 
 output "db_endpoint" {
   value       = google_sql_database_instance.this.self_link
