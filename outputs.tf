@@ -3,18 +3,13 @@ output "db_instance_name" {
   description = "string ||| Name of the MySQL instance"
 }
 
-output "db_instance_id" {
-  value       = google_sql_database_instance.this.id
-  description = "string ||| ID of the MySQL instance"
-}
-
 output "db_master_secret_name" {
   value       = google_secret_manager_secret.password.secret_id
   description = "string ||| The name of the secret in Google Secrets Manager containing the password"
 }
 
 output "db_endpoint" {
-  value       = google_sql_database_instance.this.self_link
+  value       = google_sql_database_instance.this.connection_name
   description = "string ||| The endpoint URL to access the MySQL instance."
 }
 
