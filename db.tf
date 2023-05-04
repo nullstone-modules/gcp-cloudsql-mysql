@@ -33,6 +33,10 @@ resource "google_sql_database_instance" "this" {
   }
 }
 
+locals {
+  db_port = 3306
+}
+
 /*
 choices made:
 mysql 8
