@@ -24,6 +24,8 @@ resource "google_secret_manager_secret" "password" {
   replication {
     automatic = true
   }
+
+  depends_on = [google_project_service.secret_manager]
 }
 
 resource "google_secret_manager_secret_version" "app_secret" {
