@@ -5,7 +5,7 @@ resource "google_sql_database_instance" "this" {
   root_password       = random_password.this.result
   deletion_protection = false
 
-  depends_on = [google_service_networking_connection.this]
+  depends_on = [google_service_networking_connection.this, google_project_service.sqladmin]
 
   settings {
     tier              = var.instance_class
