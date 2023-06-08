@@ -1,4 +1,11 @@
+data "google_client_config" "this" {}
 data "google_compute_zones" "available" {}
+
+locals {
+  project_id    = data.google_client_config.this.project
+  region        = data.google_client_config.this.region
+  available_zones = data.google_compute_zones.available.names
+}
 
 resource "google_project_service" "secret_manager" {
   service                    = "secretmanager.googleapis.com"
@@ -29,9 +36,4 @@ resource "google_project_service" "artifact_registry" {
   service                    = "artifactregistry.googleapis.com"
   disable_dependent_services = false
   disable_on_destroy         = false
-}
-
-locals {
-  project_id      = data.google_compute_zones.available.project
-  available_zones = data.google_compute_zones.available.names
 }
