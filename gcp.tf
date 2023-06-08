@@ -24,6 +24,12 @@ resource "google_project_service" "run" {
   disable_dependent_services = false
   disable_on_destroy         = false
 }
+// Artifact Registry is needed to create a Cloud Function (db-admin) even though we're not using it
+resource "google_project_service" "artifact_registry" {
+  service                    = "artifactregistry.googleapis.com"
+  disable_dependent_services = false
+  disable_on_destroy         = false
+}
 
 locals {
   project_id      = data.google_compute_zones.available.project
