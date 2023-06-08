@@ -9,5 +9,5 @@ module "db_admin" {
   port                      = local.db_port
   username                  = local.root_username
   password                  = random_password.this.result
-  vpc_access_connector_name = ""
+  vpc_access_connector_name = local.vpc_access_connector
 }
