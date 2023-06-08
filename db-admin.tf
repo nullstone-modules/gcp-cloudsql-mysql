@@ -10,4 +10,6 @@ module "db_admin" {
   username                  = local.root_username
   password                  = random_password.this.result
   vpc_access_connector_name = local.vpc_access_connector
+
+  depends_on = [google_project_service.run]
 }
