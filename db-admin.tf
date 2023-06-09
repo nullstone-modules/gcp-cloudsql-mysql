@@ -8,8 +8,8 @@ module "db_admin" {
   host                      = google_sql_database_instance.this.private_ip_address
   port                      = local.db_port
   database                  = "mysql"
-  username                  = local.root_username
-  password                  = random_password.this.result
+  username                  = local.admin_username
+  password                  = local.admin_password
   vpc_access_connector_name = local.vpc_access_connector
 
   depends_on = [google_project_service.run, google_project_service.artifact_registry]

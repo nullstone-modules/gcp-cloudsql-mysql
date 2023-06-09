@@ -2,7 +2,6 @@ resource "google_sql_database_instance" "this" {
   name                = local.resource_name
   database_version    = "MYSQL_${var.mysql_version}_0"
   region              = data.google_compute_zones.available.region
-  root_password       = random_password.this.result
   deletion_protection = false
 
   depends_on = [google_service_networking_connection.this, google_project_service.sqladmin]

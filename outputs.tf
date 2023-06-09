@@ -3,9 +3,9 @@ output "db_instance_name" {
   description = "string ||| Name of the MySQL instance"
 }
 
-output "db_master_secret_name" {
-  value       = google_secret_manager_secret.password.secret_id
-  description = "string ||| The name of the secret in Google Secrets Manager containing the password"
+output "db_admin_secret_name" {
+  value       = google_secret_manager_secret.admin_creds.secret_id
+  description = "string ||| The name of the secret in Google Secrets Manager containing the admin credentials { username, password }"
 }
 
 output "db_endpoint" {
