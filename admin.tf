@@ -1,5 +1,8 @@
 resource "random_string" "admin_username" {
-  length = 5
+  length  = 5
+  special = false
+  numeric = true
+  upper   = false
 }
 
 locals {
