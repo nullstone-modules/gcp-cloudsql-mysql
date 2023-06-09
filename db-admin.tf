@@ -7,6 +7,7 @@ module "db_admin" {
 
   host                      = google_sql_database_instance.this.private_ip_address
   port                      = local.db_port
+  database                  = "mysql"
   username                  = local.root_username
   password                  = random_password.this.result
   vpc_access_connector_name = local.vpc_access_connector
