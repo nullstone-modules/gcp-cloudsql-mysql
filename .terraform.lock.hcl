@@ -48,13 +48,6 @@ provider "registry.terraform.io/hashicorp/random" {
   ]
 }
 
-provider "registry.terraform.io/hashicorp/time" {
-  version = "0.9.1"
-  hashes = [
-    "h1:UHcDnIYFZ00uoou0TwPGMwOrE8gTkoRephIvdwDAK70=",
-  ]
-}
-
 provider "registry.terraform.io/nullstone-io/ns" {
   version = "0.6.20"
   hashes = [

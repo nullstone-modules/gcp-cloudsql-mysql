@@ -1,5 +1,5 @@
 locals {
-  root_username = "root@%"
+  root_username = "root"
 }
 
 resource "random_password" "this" {
