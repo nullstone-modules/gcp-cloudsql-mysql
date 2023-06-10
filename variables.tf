@@ -74,7 +74,7 @@ variable "enforce_ssl" {
   type        = bool
   default     = false
   description = <<EOF
-By default, the postgres cluster will have SSL enabled.
+By default, the mysql cluster will have SSL enabled.
 This toggle will require an SSL connection.
 This is highly recommended if you have public access enabled.
 EOF
