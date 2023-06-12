@@ -30,4 +30,4 @@ jobs:
       - id: publish
         name: Publish
         run: |
-          nullstone modules publish --version=${{ env.MODULE_VERSION }} --include=vpc/*.tf
+          nullstone modules publish --version=${{ env.MODULE_VERSION }}
