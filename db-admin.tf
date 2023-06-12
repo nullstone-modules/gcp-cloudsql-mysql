@@ -1,6 +1,6 @@
 module "db_admin" {
   source  = "api.nullstone.io/nullstone/gcp-mysql-db-admin/gcp"
-  version = "~> 0.1.0"
+  version = "~> 0.2.0"
 
   name   = local.resource_name
   labels = local.labels
