@@ -4,7 +4,7 @@ resource "google_sql_database_instance" "this" {
   region              = data.google_compute_zones.available.region
   deletion_protection = false
 
-  depends_on = [google_service_networking_connection.this, google_project_service.sqladmin]
+  depends_on = [google_service_networking_connection.private_vpc_connection, google_project_service.sqladmin]
 
   settings {
     tier              = var.instance_class
