@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     google = {
-      version = "4.63.1"
+      version = "~>6.12.0"
     }
     ns = {
       source = "nullstone-io/ns"
