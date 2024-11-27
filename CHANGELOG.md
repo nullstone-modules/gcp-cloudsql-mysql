@@ -1,3 +1,6 @@
+# 0.3.1 (Nov 27, 2024)
+* Fix upgrade of Google provider.
+
 # 0.3.0 (Nov 27, 2024)
 * Move networking setup to network module.
 * Upgrade Terraform modules.
