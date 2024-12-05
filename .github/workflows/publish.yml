@@ -4,10 +4,6 @@ on:
     tags:
       - 'v*'
 
-env:
-  NULLSTONE_ORG: nullstone
-  NULLSTONE_API_KEY: ${{ secrets.NULLSTONE_API_KEY }}
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -17,17 +13,24 @@ jobs:
         shell: bash
 
     steps:
+      # Checkout the repository to the GitHub Actions runner
       - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up Nullstone
-        uses: nullstone-io/setup-nullstone-action@v0
+        uses: actions/checkout@v2
 
       - name: Find version
         id: version
-        run: echo "MODULE_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/v}
 
-      - id: publish
-        name: Publish
-        run: |
-          nullstone modules publish --version=${{ env.MODULE_VERSION }}
+      # Package files into tgz
+      - name: Package
+        run: tar -cvzf module.tgz *.tf README.md
+
+      # Publish to nullstone
+      - name: Publish
+        env:
+          NULLSTONE_ORG: nullstone
+          NULLSTONE_MODULE: aws-rds-mysql
+          RELEASE_VERSION: ${{ steps.version.outputs.tag }}
+        run: |-
+          curl -XPOST -F "file=@module.tgz" -H "X-Nullstone-Key: ${{ secrets.NULLSTONE_API_KEY }}" \
+            https://api.nullstone.io/orgs/${NULLSTONE_ORG}/modules/${NULLSTONE_MODULE}/versions?version=${RELEASE_VERSION}
