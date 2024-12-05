@@ -11,16 +11,16 @@ resource "google_sql_database_instance" "this" {
     activation_policy = "ALWAYS"
     availability_type = var.high_availability ? "REGIONAL" : "ZONAL"
     disk_size         = var.allocated_storage
-    disk_autoresize = true
+    disk_autoresize   = true
     disk_type         = "PD_SSD"
     pricing_plan      = "PER_USE"
     user_labels       = local.labels
 
     backup_configuration {
-      enabled            = true
+      enabled                        = true
       start_time                     = "02:00"
       transaction_log_retention_days = var.backup_retention_count
-      binary_log_enabled = true
+      binary_log_enabled             = true
 
       backup_retention_settings {
         retention_unit   = "COUNT"
@@ -46,8 +46,6 @@ resource "google_sql_database_instance" "this" {
       record_client_address   = true
     }
   }
-
-  depends_on = [google_project_service.sqladmin]
 }
 
 locals {
