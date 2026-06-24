@@ -35,9 +35,19 @@ resource "google_sql_database_instance" "this" {
     }
 
     ip_configuration {
-      ssl_mode        = var.enforce_ssl ? "ENCRYPTED_ONLY" : "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
-      private_network = local.vpc_id
-      ipv4_enabled    = var.enable_public_access
+      ssl_mode = var.enforce_ssl ? "ENCRYPTED_ONLY" : "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
+      // PSC is mutually exclusive with private services access (private_network) and public access (ipv4_enabled).
+      private_network = var.enable_psc ? null : local.vpc_id
+      ipv4_enabled    = var.enable_psc ? false : var.enable_public_access
+
+      dynamic "psc_config" {
+        for_each = var.enable_psc ? [true] : []
+
+        content {
+          psc_enabled               = true
+          allowed_consumer_projects = [local.project_id]
+        }
+      }
     }
 
     insights_config {
@@ -50,6 +60,22 @@ resource "google_sql_database_instance" "this" {
 
 locals {
   db_port = 3306
+
+  // Hostname (no trailing dot) of the Private Service Connect endpoint, registered in the network's internal DNS zone.
+  psc_dns_name = "${local.block_name}.${trimsuffix(local.internal_domain_fqdn, ".")}"
+
+  // Endpoint strategy: with PSC, connect via the internal DNS name; otherwise via the private IP.
+  db_endpoint_psa = "${google_sql_database_instance.this.private_ip_address}:${local.db_port}"
+  db_endpoint_psc = "${local.psc_dns_name}:${local.db_port}"
+}
+
+// Warn (rather than fail) when both public access and PSC are requested. They are mutually exclusive;
+// PSC takes precedence and public access is forced off.
+check "psc_public_access_exclusive" {
+  assert {
+    condition     = !(var.enable_public_access && var.enable_psc)
+    error_message = "enable_public_access and enable_psc are mutually exclusive. PSC takes precedence, so public access will be disabled on this instance."
+  }
 }
 
 /*

@@ -1,3 +1,6 @@
+# 0.4.0 (Jun 24, 2026)
+* Added `var.enable_psc` to support Private Service Connect in addition to Private Service Access.
+
 # 0.3.1 (Nov 27, 2024)
 * Fix upgrade of Google provider.
 

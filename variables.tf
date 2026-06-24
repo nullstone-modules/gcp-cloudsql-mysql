@@ -89,6 +89,19 @@ If you want to access your database, we recommend using a bastion instead.
 EOF
 }
 
+variable "enable_psc" {
+  type        = bool
+  default     = false
+  description = <<EOF
+Enables connectivity to this mysql instance via Private Service Connect (PSC) instead of the default private services access (PSA).
+PSC is useful when you need to reach the database from a different VPC or project, or when a managed Google Cloud service (such as Datastream or Database Migration Service) needs to connect to it.
+When enabled, public access is forced off (it is mutually exclusive with PSC).
+By default, this is disabled and the instance uses private services access.
+
+NOTE: Switching an existing instance between PSA and PSC forces the instance to be replaced (destructive). Plan a backup/restore or migration before toggling this on an existing datastore.
+EOF
+}
+
 /*
 variable "custom_mysql_params" {
   type        = map(string)

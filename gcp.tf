@@ -4,7 +4,8 @@ data "google_project" "this" {
 }
 
 locals {
-  region = data.google_client_config.this.region
+  region     = data.google_client_config.this.region
+  project_id = data.google_project.this.project_id
 }
 
 resource "google_project_service" "secret_manager" {
@@ -15,6 +16,20 @@ resource "google_project_service" "secret_manager" {
 
 resource "google_project_service" "sqladmin" {
   service                    = "sqladmin.googleapis.com"
+  disable_dependent_services = false
+  disable_on_destroy         = false
+}
+
+// Required for the Private Service Connect endpoint (forwarding rule + reserved IP).
+resource "google_project_service" "compute" {
+  service                    = "compute.googleapis.com"
+  disable_dependent_services = false
+  disable_on_destroy         = false
+}
+
+// Required to register the PSC endpoint in the network's internal DNS zone.
+resource "google_project_service" "dns" {
+  service                    = "dns.googleapis.com"
   disable_dependent_services = false
   disable_on_destroy         = false
 }
