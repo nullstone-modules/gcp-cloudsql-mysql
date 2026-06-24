@@ -2,19 +2,20 @@ resource "google_sql_database_instance" "this" {
   name                = local.resource_name
   database_version    = "MYSQL_${var.mysql_version}_0"
   region              = local.region
-  deletion_protection = false
+  deletion_protection = var.deletion_protection_enabled
 
   depends_on = [google_project_service.sqladmin]
 
   settings {
-    tier              = var.instance_class
-    activation_policy = "ALWAYS"
-    availability_type = var.high_availability ? "REGIONAL" : "ZONAL"
-    disk_size         = var.allocated_storage
-    disk_autoresize   = true
-    disk_type         = "PD_SSD"
-    pricing_plan      = "PER_USE"
-    user_labels       = local.labels
+    tier                        = var.instance_class
+    activation_policy           = "ALWAYS"
+    availability_type           = var.high_availability ? "REGIONAL" : "ZONAL"
+    disk_size                   = var.allocated_storage
+    disk_autoresize             = true
+    disk_type                   = "PD_SSD"
+    pricing_plan                = "PER_USE"
+    user_labels                 = local.labels
+    deletion_protection_enabled = var.deletion_protection_enabled
 
     backup_configuration {
       enabled                        = true

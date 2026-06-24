@@ -80,6 +80,16 @@ This is highly recommended if you have public access enabled.
 EOF
 }
 
+variable "deletion_protection_enabled" {
+  type        = bool
+  default     = false
+  description = <<EOF
+Protects the database instance from accidental deletion.
+When enabled, the instance cannot be deleted until this is disabled, at both the Terraform and GCP API levels.
+By default, this is disabled. It is recommended to enable this in production environments.
+EOF
+}
+
 variable "enable_public_access" {
   type        = bool
   default     = false
