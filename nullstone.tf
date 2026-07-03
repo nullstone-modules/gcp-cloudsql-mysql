@@ -1,8 +1,5 @@
 terraform {
   required_providers {
-    google = {
-      version = "~>6.12.0"
-    }
     ns = {
       source = "nullstone-io/ns"
     }
@@ -21,13 +18,7 @@ resource "random_string" "resource_suffix" {
 }
 
 locals {
-  tags          = { for k, v in data.ns_workspace.this.tags : lower(k) => v }
+  labels        = data.ns_workspace.this.gcp_labels
   block_name    = data.ns_workspace.this.block_name
   resource_name = "${data.ns_workspace.this.block_ref}-${random_string.resource_suffix.result}"
-  labels = {
-    "stack"      = data.ns_workspace.this.stack_name
-    "block-ref"  = data.ns_workspace.this.block_ref
-    "block-name" = data.ns_workspace.this.block_name
-    "env"        = data.ns_workspace.this.env_name
-  }
 }

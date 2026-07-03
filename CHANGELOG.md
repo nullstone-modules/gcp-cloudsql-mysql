@@ -1,3 +1,8 @@
+# 0.4.1 (Jul 03, 2026)
+* Switched to using `data.ns_workspace.gcp_labels` instead of `tags`.
+* Upgraded TF providers.
+* Switched to OpenTofu.
+
 # 0.4.0 (Jun 24, 2026)
 * Added `var.enable_psc` to support Private Service Connect in addition to Private Service Access.
 * Added `var.deletion_protection_enabled` to protect the instance from deletion at both the Terraform and GCP API levels.
