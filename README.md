@@ -46,3 +46,9 @@ Choose PSA if:
 ### ⚠️ Switching an existing database between PSA and PSC
 
 PSA and PSC are different connectivity models on the instance, so flipping `enable_psc` on an **existing** database forces the instance to be **replaced** — which destroys its data. Do not toggle this in place on a database you care about. Instead, take a backup (or export), create the instance with the new setting, and restore/migrate your data into it.
+
+## How to monitor (optional)
+
+Connect a datastore satisfying the `datastore/gcp/notification` contract under the connection name `notification`,
+and the module creates a Cloud Monitoring alert policy for the db-admin function (5xx error rate above `admin_thresholds.error_rate`).
+Without a `notification` connection, no alert policy is created.

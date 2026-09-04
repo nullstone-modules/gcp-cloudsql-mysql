@@ -1,3 +1,6 @@
+# 0.4.2 (Sep 04, 2026)
+* Added the `notification` connection and an alert on the db-admin function 5xx error rate, configurable with `var.admin_thresholds`.
+
 # 0.4.1 (Jul 03, 2026)
 * Switched to using `data.ns_workspace.gcp_labels` instead of `tags`.
 * Upgraded TF providers.
